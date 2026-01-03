@@ -111,18 +111,54 @@ Guide to get a detailed explanation of an adonis-mcp feature with code examples.
 
 ## 🚀 Usage
 
-### Start the server
+### Installation
+
+Install globally via npm:
 ```bash
-node ace mcp:serve
+npm install -g adonis-mcp-server
 ```
 
-### Configuration
-The server is configured in `config/mcp.ts`:
-```typescript
+Or use with npx (no installation required):
+```bash
+npx adonis-mcp-server
+```
+
+### Testing locally before publishing
+
+1. Build the project:
+```bash
+npm run build
+```
+
+2. Test with npx locally:
+```bash
+cd build
+node bin/mcp.js
+```
+
+### Start the MCP server
+
+```bash
+adonis-mcp-server
+```
+
+Or with npx:
+```bash
+npx adonis-mcp-server
+```
+
+### Configuration for MCP Clients
+
+Add to your Claude Desktop or Cursor MCP configuration:
+
+```json
 {
-  name: 'adonis-mcp',
-  version: '1.0.0',
-  completions: true // Completions enabled
+  "mcpServers": {
+    "adonis-mcp-docs": {
+      "command": "npx",
+      "args": ["adonis-mcp-server"]
+    }
+  }
 }
 ```
 
