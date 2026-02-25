@@ -37,11 +37,11 @@
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
-    "#generated/*": "./.adonisjs/server/*.js",
     "#models/*": "./app/models/*.js",
     "#mails/*": "./app/mails/*.js",
     "#services/*": "./app/services/*.js",
     "#listeners/*": "./app/listeners/*.js",
+    "#generated/*": "./.adonisjs/server/*.js",
     "#events/*": "./app/events/*.js",
     "#middleware/*": "./app/middleware/*.js",
     "#validators/*": "./app/validators/*.js",
