@@ -19,7 +19,8 @@ type Schema = BaseSchema<{
 export default class SearchInDocsTool extends Tool<Schema> {
   name = 'search_in_docs'
   title = 'Search in Documentation'
-  description = 'Search for a keyword or phrase across all documentation files and return matching sections'
+  description =
+    'Search for a keyword or phrase across all documentation files and return matching sections'
 
   async handle({ args, response }: ToolContext<Schema>) {
     const query = args?.query
@@ -38,7 +39,7 @@ export default class SearchInDocsTool extends Tool<Schema> {
       'resources',
       'sessions',
       'tools',
-      'unit-tests'
+      'unit-tests',
     ]
 
     const results: Array<{
@@ -66,7 +67,7 @@ export default class SearchInDocsTool extends Tool<Schema> {
             matches.push({
               lineNumber: index + 1,
               line: line.trim(),
-              context: [...contextBefore, ...contextAfter].map(l => l.trim())
+              context: [...contextBefore, ...contextAfter].map((l) => l.trim()),
             })
           }
         })
@@ -74,7 +75,7 @@ export default class SearchInDocsTool extends Tool<Schema> {
         if (matches.length > 0) {
           results.push({
             file: fileName,
-            matches: matches
+            matches: matches,
           })
         }
       } catch (error) {
@@ -94,7 +95,7 @@ export default class SearchInDocsTool extends Tool<Schema> {
       caseSensitive: caseSensitive,
       totalFiles: results.length,
       totalMatches: totalMatches,
-      results: results
+      results: results,
     })
   }
 
@@ -104,14 +105,14 @@ export default class SearchInDocsTool extends Tool<Schema> {
       properties: {
         query: {
           type: 'string',
-          description: 'The search query (keyword or phrase to find in documentation)'
+          description: 'The search query (keyword or phrase to find in documentation)',
         },
         caseSensitive: {
           type: 'boolean',
-          description: 'Whether the search should be case-sensitive (default: false)'
-        }
+          description: 'Whether the search should be case-sensitive (default: false)',
+        },
       },
-      required: ['query']
+      required: ['query'],
     } as Schema
   }
 }

@@ -18,7 +18,8 @@ type Schema = BaseSchema<{
 export default class ExtractCodeExamplesTool extends Tool<Schema> {
   name = 'extract_code_examples'
   title = 'Extract Code Examples'
-  description = 'Extracts all code blocks from a documentation file with their language and line numbers'
+  description =
+    'Extracts all code blocks from a documentation file with their language and line numbers'
 
   async handle({ args, response }: ToolContext<Schema>) {
     const typedArgs = args as { filename?: string } | undefined
@@ -63,7 +64,7 @@ export default class ExtractCodeExamplesTool extends Tool<Schema> {
             codeBlocks.push({
               language: blockLanguage,
               code: codeLines.join('\n'),
-              lineNumber: i + 1
+              lineNumber: i + 1,
             })
           }
         }
@@ -76,7 +77,7 @@ export default class ExtractCodeExamplesTool extends Tool<Schema> {
       return response.structured({
         filename: filename,
         totalBlocks: codeBlocks.length,
-        codeBlocks: codeBlocks
+        codeBlocks: codeBlocks,
       })
     } catch (error) {
       if (error instanceof Error) {
@@ -92,10 +93,11 @@ export default class ExtractCodeExamplesTool extends Tool<Schema> {
       properties: {
         filename: {
           type: 'string',
-          description: 'Name of the documentation file (without .md extension, e.g., "resources", "tools")'
-        }
+          description:
+            'Name of the documentation file (without .md extension, e.g., "resources", "tools")',
+        },
       },
-      required: ['filename']
+      required: ['filename'],
     } as Schema
   }
 }

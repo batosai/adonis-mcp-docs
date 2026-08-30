@@ -14,7 +14,8 @@ export default class MarkdownResource extends Resource<Args> {
   mimeType = 'text/markdown'
 
   title = 'Documentation Markdown File'
-  description = 'Dynamic resource to access markdown documentation files. Use {name} parameter to specify the file to retrieve.'
+  description =
+    'Dynamic resource to access markdown documentation files. Use {name} parameter to specify the file to retrieve.'
 
   async handle({ args, response }: ResourceContext<Args>) {
     const documentationService = new DocumentationService()

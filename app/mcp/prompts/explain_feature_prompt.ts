@@ -1,5 +1,5 @@
 import type { PromptContext, CompleteContext } from '@jrmc/adonis-mcp/types/context'
-import type { BaseSchema } from '@jrmc/adonis-mcp/types/method'
+import type { BaseSchema, InferJSONSchema } from '@jrmc/adonis-mcp/types/method'
 
 import { Prompt } from '@jrmc/adonis-mcp'
 
@@ -14,7 +14,8 @@ type Schema = BaseSchema<{
 export default class ExplainFeaturePrompt extends Prompt<Schema> {
   name = 'explain_feature'
   title = 'Explain Documentation Feature'
-  description = 'Get a detailed explanation of an adonis-mcp feature with code examples and best practices'
+  description =
+    'Get a detailed explanation of an adonis-mcp feature with code examples and best practices'
 
   async handle({ args, response }: PromptContext<Schema>) {
     const feature = args?.feature
@@ -37,11 +38,11 @@ export default class ExplainFeaturePrompt extends Prompt<Schema> {
       response.embeddedResource('file:///tools.md'),
       response.embeddedResource('file:///prompts.md'),
       response.text(''),
-      response.text('Use the embedded documentation resources above as reference.')
+      response.text('Use the embedded documentation resources above as reference.'),
     ]
   }
 
-  async complete({ args, response }: CompleteContext<Schema>) {
+  async complete({ args, response }: CompleteContext<InferJSONSchema<Schema>>) {
     const typedArgs = args as { feature?: string; level?: string } | undefined
 
     // Provide feature suggestions
@@ -59,15 +60,15 @@ export default class ExplainFeaturePrompt extends Prompt<Schema> {
           'sessions',
           'unit testing',
           'inspector',
-          'middleware'
-        ]
+          'middleware',
+        ],
       })
     }
 
     // Provide level suggestions
     if (typedArgs?.level !== undefined) {
       return response.complete({
-        values: ['beginner', 'intermediate', 'advanced']
+        values: ['beginner', 'intermediate', 'advanced'],
       })
     }
 
@@ -81,14 +82,15 @@ export default class ExplainFeaturePrompt extends Prompt<Schema> {
         feature: {
           type: 'string',
           description:
-            'The feature or concept to explain (e.g., "resources", "tools", "prompts", "authentication")'
+            'The feature or concept to explain (e.g., "resources", "tools", "prompts", "authentication")',
         },
         level: {
           type: 'string',
-          description: 'Target audience level: beginner, intermediate, or advanced (default: intermediate)'
-        }
+          description:
+            'Target audience level: beginner, intermediate, or advanced (default: intermediate)',
+        },
       },
-      required: ['feature']
+      required: ['feature'],
     } as Schema
   }
 }
